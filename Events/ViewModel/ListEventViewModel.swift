@@ -12,6 +12,7 @@ class ListEventViewModel: ListEventViewModelProtocol {
     
     private var events: [Event] = []
     private var networkManagerProtocol: NetworkManagerProtocol
+    private var address: String?
     
     init(networkManagerProtocol: NetworkManagerProtocol) {
         self.networkManagerProtocol = networkManagerProtocol

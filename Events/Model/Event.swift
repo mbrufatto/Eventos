@@ -45,7 +45,7 @@ struct Event: Codable {
         }
         
         if let eventDate = try? container.decode(Int.self, forKey: .date) {
-            self.date = eventDate.convertTimespampToDate(timestamp: eventDate)
+            self.date = eventDate.convertTimespampToDate()
         }
         
         if let eventDesc = try? container.decode(String.self, forKey: .description) {
