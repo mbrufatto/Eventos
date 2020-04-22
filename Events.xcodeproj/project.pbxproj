@@ -18,6 +18,7 @@
 		61D655E0244FAFB200A055C2 /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 61D655DF244FAFB200A055C2 /* events.json */; };
 		61D655E2244FB18B00A055C2 /* ListEventsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D655E1244FB18B00A055C2 /* ListEventsTest.swift */; };
 		61D655E5244FB2CB00A055C2 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D655E4244FB2CB00A055C2 /* IntExtension.swift */; };
+		61D655E7244FF33200A055C2 /* NetworkManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D655E6244FF33200A055C2 /* NetworkManagerProtocol.swift */; };
 		8E3C0859BAD3342866B4AEEB /* Pods_EventsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44259C8702C65C7FA4A6B4A5 /* Pods_EventsTests.framework */; };
 		D2B7754A1B37EF72651F243A /* Pods_Events.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 380446321899262FA540EC5C /* Pods_Events.framework */; };
 /* End PBXBuildFile section */
@@ -53,6 +54,7 @@
 		61D655DF244FAFB200A055C2 /* events.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
 		61D655E1244FB18B00A055C2 /* ListEventsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListEventsTest.swift; sourceTree = "<group>"; };
 		61D655E4244FB2CB00A055C2 /* IntExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
+		61D655E6244FF33200A055C2 /* NetworkManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerProtocol.swift; sourceTree = "<group>"; };
 		91DED2E11F82D8FAC712ED4B /* Pods-Events.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Events.debug.xcconfig"; path = "Target Support Files/Pods-Events/Pods-Events.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				61D655D9244F9FAB00A055C2 /* NetworkManager.swift */,
+				61D655E6244FF33200A055C2 /* NetworkManagerProtocol.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 			files = (
 				61D655DD244FA07B00A055C2 /* ApiConfig.swift in Sources */,
 				61D655B4244F701B00A055C2 /* AppDelegate.swift in Sources */,
+				61D655E7244FF33200A055C2 /* NetworkManagerProtocol.swift in Sources */,
 				61D655D7244F992300A055C2 /* Event.swift in Sources */,
 				61D655DA244F9FAB00A055C2 /* NetworkManager.swift in Sources */,
 				61D655B6244F701B00A055C2 /* SceneDelegate.swift in Sources */,
