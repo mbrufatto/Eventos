@@ -9,14 +9,13 @@
 import Foundation
 
 extension Int {
-    func convertTimespampToDate(timestamp: Int) -> String {
-        let epocTime = TimeInterval(timestamp) / 1000
+    func convertTimespampToDate() -> String {
+        let epocTime = TimeInterval(self) / 1000
         let unixTimestamp = Date(timeIntervalSince1970: epocTime)
         
         let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone(abbreviation: "GMT") //Set timezone that you want
-        dateFormatter.locale = NSLocale.current
-        dateFormatter.dateFormat = "dd/MM/yyyy" //Specify your format that you want
+        dateFormatter.dateFormat = "E, MMM d, yyyy"
+        dateFormatter.locale = Locale(identifier: "pt_BR")
         return dateFormatter.string(from: unixTimestamp)
     }
 }

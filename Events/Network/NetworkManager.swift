@@ -29,4 +29,27 @@ class NetworkManager: NetworkManagerProtocol {
         }
         dataTask.resume()
     }
+    
+    
+    func getAddressByLatitudeAndLongitude(latitude: String, longitude: String, completion: @escaping GetEventAddressClosure) {
+        
+        let url = URL(string: "http://nominatim.openstreetmap.org/reverse?lat=\(latitude)&lon=\(longitude)&format=json")
+        
+        let dataTask = URLSession.shared.dataTask(with: url!) { (data, response, error) in
+            
+            DispatchQueue.main.async {
+                if let data = data {
+                    let decoder = JSONDecoder()
+                    do {
+                        let decodedAddress = try decoder.decode(AddressBase.self, from: data)
+                        completion(decodedAddress.address)
+                    } catch {
+                        print(error.localizedDescription)
+                        completion(Address())
+                    }
+                }
+            }
+        }
+        dataTask.resume()
+    }
 }

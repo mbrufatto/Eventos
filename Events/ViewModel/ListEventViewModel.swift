@@ -12,12 +12,10 @@ class ListEventViewModel: ListEventViewModelProtocol {
     
     private var events: [Event] = []
     private var networkManagerProtocol: NetworkManagerProtocol
+    private var address: String?
     
     init(networkManagerProtocol: NetworkManagerProtocol) {
         self.networkManagerProtocol = networkManagerProtocol
-        self.networkManagerProtocol.getEvents(completion: { (events) in
-            self.events = events
-        })
     }
     
     func numberOfRows() -> Int {
