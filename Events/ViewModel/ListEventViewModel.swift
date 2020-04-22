@@ -15,9 +15,6 @@ class ListEventViewModel: ListEventViewModelProtocol {
     
     init(networkManagerProtocol: NetworkManagerProtocol) {
         self.networkManagerProtocol = networkManagerProtocol
-        self.networkManagerProtocol.getEvents(completion: { (events) in
-            self.events = events
-        })
     }
     
     func numberOfRows() -> Int {
