@@ -8,11 +8,9 @@
 
 import Foundation
 
-class NetworkManager {
-    
-    static let shared = NetworkManager()
-    
-    func getEvents(completion: @escaping([Event]) -> Void) {
+class NetworkManager: NetworkManagerProtocol {
+   
+    func getEvents(completion: @escaping GetEventsClosure) {
         
         let url = URL(string: ApiConfig.baseUrl)
         
