@@ -15,7 +15,7 @@ class DetailEventViewController: UIViewController {
     //MARK: - Properties
     
     var event: Event?
-    var detailEventViewModel = DetailEventViewModel(networkManagerProtocol: NetworkManager())
+    var detailEventViewModel: DetailEventViewModelProtocol
     
     private var eventImage = UIImageView()
     private var eventTitle = UILabel()
@@ -52,6 +52,15 @@ class DetailEventViewController: UIViewController {
     }()
     
     //MARK: - View Controller Lifecycle
+    
+    init(detailEventViewModelProtocol: DetailEventViewModelProtocol? = nil, networkManagerProtocol: NetworkManagerProtocol? = nil) {
+        self.detailEventViewModel = detailEventViewModelProtocol ?? DetailEventViewModel(networkManagerProtocol: networkManagerProtocol ?? NetworkManager())
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

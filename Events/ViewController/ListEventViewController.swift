@@ -10,8 +10,17 @@ import UIKit
 
 class ListEventViewController: UIViewController {
 
-    var tableView: UITableView!
-    var listEventViewModel = ListEventViewModel(networkManagerProtocol: NetworkManager())
+    private var tableView: UITableView!
+    private var listEventViewModel: ListEventViewModelProtocol
+    
+    init(listEventViewModelProtocol: ListEventViewModelProtocol? = nil, networkManagerProtocol: NetworkManagerProtocol? = nil) {
+        self.listEventViewModel = listEventViewModelProtocol ?? ListEventViewModel(networkManagerProtocol: networkManagerProtocol ?? NetworkManager())
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

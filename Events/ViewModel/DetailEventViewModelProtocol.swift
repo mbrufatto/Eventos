@@ -9,5 +9,5 @@
 import Foundation
 
 protocol DetailEventViewModelProtocol {
-    func loadAddress(latitude: String, longitude: String, completion: GetEventAddressClosure)
+    func loadAddress(latitude: String, longitude: String, completion: @escaping GetEventAddressClosure)
 }

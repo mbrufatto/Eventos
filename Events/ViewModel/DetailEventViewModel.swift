@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailEventViewModel {
+class DetailEventViewModel: DetailEventViewModelProtocol {
 
     private var networkManagerProtocol: NetworkManagerProtocol
     
