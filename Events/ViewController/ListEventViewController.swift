@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ListEventViewController: UIViewController, ViewControllerProtocol {
+class ListEventViewController: UIViewController {
 
     var tableView: UITableView!
     var listEventViewModel = ListEventViewModel(networkManagerProtocol: NetworkManager())
@@ -32,6 +32,7 @@ class ListEventViewController: UIViewController, ViewControllerProtocol {
         
         tableView.separatorStyle = .none
         tableView.dataSource = self
+        tableView.delegate = self
         
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 50
@@ -58,5 +59,14 @@ extension ListEventViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: EventTableViewCell.identifier) as! EventTableViewCell
         cell.event = listEventViewModel.eventAt(indexPath.row)
         return cell
+    }
+}
+
+extension ListEventViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailViewController = DetailEventViewController()
+        detailViewController.event = listEventViewModel.eventAt(indexPath.row)
+        self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
