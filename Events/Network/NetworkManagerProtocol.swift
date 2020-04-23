@@ -10,8 +10,10 @@ import Foundation
 
 typealias GetEventsClosure = ([Event]) -> Void
 typealias GetEventAddressClosure = (Address) -> Void
+typealias DoCheckinClousure = (Bool) -> Void
 
 protocol NetworkManagerProtocol {
     func getEvents(completion: @escaping GetEventsClosure)
     func getAddressByLatitudeAndLongitude(latitude: String, longitude: String, completion: @escaping GetEventAddressClosure)
+    func sendCheckin(eventId: String, name: String, email: String, completion: @escaping DoCheckinClousure)
 }

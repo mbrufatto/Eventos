@@ -21,4 +21,10 @@ class DetailEventViewModel: DetailEventViewModelProtocol {
             completion(address)
         })
     }
+    
+    func doCheckin(eventId: String, name: String, email: String, completion: @escaping DoCheckinClousure) {
+        self.networkManagerProtocol.sendCheckin(eventId: eventId, name: name, email: email, completion: { result in
+            completion(result)
+        })
+    }
 }

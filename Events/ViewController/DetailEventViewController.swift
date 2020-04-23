@@ -24,6 +24,10 @@ class DetailEventViewController: UIViewController {
     private var eventPrice = UILabel()
     private var eventDescription = UILabel()
     private var eventMap = MKMapView()
+    private var btnShare = UIButton(type: .roundedRect)
+    private var btnCheckin = UIButton(type: .roundedRect)
+    private let stackBtns = UIStackView()
+    private let viewBtn = UIView()
     
     private lazy var contentViewSize = CGSize(width: self.view.frame.width, height: self.view.frame.height)
     
@@ -72,11 +76,12 @@ class DetailEventViewController: UIViewController {
         
         self.setupComponents()
         self.setupConstraints()
-        
     }
     
     internal func setupComponents() {
         self.view.addSubview(self.scrollView)
+        
+        self.containerView.backgroundColor = .white
         
         if let event = self.event {
             self.eventImage.kf.setImage(with: URL(string: event.image), placeholder: UIImage(named: "festa"))
@@ -86,39 +91,88 @@ class DetailEventViewController: UIViewController {
             self.containerView.addSubview(self.eventRoad)
             self.containerView.addSubview(self.eventCityAndState)
             self.containerView.addSubview(self.eventPrice)
+            self.containerView.addSubview(self.stackBtns)
             self.containerView.addSubview(self.eventDescription)
             self.containerView.addSubview(self.eventMap)
             
             self.detailEventViewModel.loadAddress(latitude: event.latitude, longitude: event.longitude, completion: { address in
+                
+                 var contentSize: CGFloat = 320
+                
                 self.eventTitle.text = event.title
                 self.eventTitle.font = .boldSystemFont(ofSize: 20)
                 self.eventTitle.numberOfLines = 0
+                contentSize += self.estimatedHeightOfLabel(text: event.title, font: .boldSystemFont(ofSize: 20)) + 8
                 
                 self.eventRoad.text = address.road
                 self.eventRoad.font = .systemFont(ofSize: 16)
                 self.eventRoad.numberOfLines = 0
                 self.eventRoad.textColor = .gray
+                contentSize += self.estimatedHeightOfLabel(text: address.road, font: .systemFont(ofSize: 16)) + 8
                 
                 self.eventCityAndState.text = "\(address.city) - \(address.state)"
                 self.eventCityAndState.numberOfLines = 0
                 self.eventCityAndState.font = .systemFont(ofSize: 16)
                 self.eventCityAndState.textColor = .gray
+                contentSize += self.estimatedHeightOfLabel(text: "\(address.city) - \(address.state)", font: .systemFont(ofSize: 16)) + 8
                 
                 self.eventPrice.text = event.price.formatCurrency()
                 self.eventPrice.numberOfLines = 0
                 self.eventPrice.font = .systemFont(ofSize: 16)
                 self.eventPrice.textColor = .gray
+                contentSize += self.estimatedHeightOfLabel(text: event.price.formatCurrency(), font: .systemFont(ofSize: 16)) + 8
+        
+                self.stackBtns.distribution = .fillEqually
+                self.stackBtns.alignment = .fill
+                self.stackBtns.spacing = 10
+                self.stackBtns.axis = .horizontal
+
+                self.btnCheckin.setTitle("Check-in", for: .normal)
+                self.btnCheckin.setTitleColor(.gray, for: .normal)
+                self.btnCheckin.layer.borderColor = UIColor.gray.cgColor
+                self.btnCheckin.layer.borderWidth = 1
+                self.btnCheckin.layer.cornerRadius = 10
+                self.btnCheckin.addTarget(self, action: #selector(self.tapCheckinButton(_:)), for: .touchUpInside)
+
+                self.btnShare.setTitle("Compartilhar", for: .normal)
+                self.btnShare.setTitleColor(.gray, for: .normal)
+                self.btnShare.layer.borderColor = UIColor.gray.cgColor
+                self.btnShare.layer.borderWidth = 1
+                self.btnShare.layer.cornerRadius = 10
+                self.btnShare.addTarget(self, action: #selector(self.tapShareButton(_:)), for: .touchUpInside)
+
+                self.stackBtns.addArrangedSubview(self.btnCheckin)
+                self.stackBtns.addArrangedSubview(self.btnShare)
+                contentSize += 48
                 
                 self.eventDescription.text = event.description
                 self.eventDescription.numberOfLines = 0
                 self.eventDescription.font = .systemFont(ofSize: 17)
+                contentSize += self.estimatedHeightOfLabel(text: self.eventDescription.text!, font: .systemFont(ofSize: 17))
                 
                 let latitude =  (event.latitude as NSString).doubleValue
                 let longitude = (event.longitude as NSString).doubleValue
                 
                 self.setCoordinateInMap(latitude: latitude, longitude: longitude, title: event.title)
+                
+                contentSize += 290
+                
+                self.setNewContentSize(size: contentSize)
             })
         }
+    }
+    
+    private func estimatedHeightOfLabel(text: String, font: UIFont) -> CGFloat {
+
+        let size = CGSize(width: view.frame.width - 16, height: 1000)
+
+        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+
+        let attributes = [NSAttributedString.Key.font: font]
+
+        let rectangleHeight = String(text).boundingRect(with: size, options: options, attributes: attributes, context: nil).height
+
+        return rectangleHeight
     }
     
     private func setCoordinateInMap(latitude: CLLocationDegrees, longitude: CLLocationDegrees, title: String) {
@@ -141,6 +195,7 @@ class DetailEventViewController: UIViewController {
         self.eventPrice.translatesAutoresizingMaskIntoConstraints = false
         self.eventDescription.translatesAutoresizingMaskIntoConstraints = false
         self.eventMap.translatesAutoresizingMaskIntoConstraints = false
+        self.stackBtns.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             self.eventImage.topAnchor.constraint(equalTo: containerView.topAnchor),
@@ -164,15 +219,82 @@ class DetailEventViewController: UIViewController {
             self.eventPrice.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 8),
             self.eventPrice.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: 8),
             
-            self.eventDescription.topAnchor.constraint(equalTo: self.eventPrice.bottomAnchor, constant: 8),
+            self.stackBtns.topAnchor.constraint(equalTo: self.eventPrice.bottomAnchor, constant: 8),
+            self.stackBtns.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 8),
+            self.stackBtns.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -8),
+            self.stackBtns.heightAnchor.constraint(equalToConstant: 30),
+            
+            self.eventDescription.topAnchor.constraint(equalTo: self.stackBtns.bottomAnchor, constant: 8),
             self.eventDescription.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 8),
-            self.eventDescription.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: 8),
+            self.eventDescription.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -8),
             
             self.eventMap.topAnchor.constraint(equalTo: self.eventDescription.bottomAnchor, constant: 8),
             self.eventMap.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 8),
-            self.eventMap.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: 8),
+            self.eventMap.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -8),
             self.eventMap.heightAnchor.constraint(equalToConstant: 269),
-            self.eventMap.bottomAnchor.constraint(equalTo: self.containerView.bottomAnchor, constant: 8)
+            self.eventMap.bottomAnchor.constraint(equalTo: self.containerView.bottomAnchor, constant: -8)
         ])
+    }
+    
+    @objc private func tapShareButton(_ sender: UIButton) {
+        let event: [Event] = [self.event!]
+        let activityController = UIActivityViewController(activityItems: event, applicationActivities: nil)
+        present(activityController, animated: true)
+    }
+    
+    @objc private func tapCheckinButton(_ sender: UIButton) {
+        let alertController = UIAlertController(title: "Informe seus dados",
+                                                message: "Para poder realizar o check-in, precisamos que nos infome os seu nome e e-mail", preferredStyle: .alert)
+        alertController.addTextField(configurationHandler: { textField in
+            textField.placeholder = "Informe seu nome"
+        })
+        alertController.addTextField(configurationHandler: { textField in
+            textField.placeholder = "Informe seu e-mail"
+            textField.keyboardType = .emailAddress
+        })
+        
+        let submitAction = UIAlertAction(title: "Enviar", style: .default) { [unowned alertController] _ in
+            let name = alertController.textFields![0].text
+            let email = alertController.textFields![1].text
+            
+            if (name == nil || name!.isEmpty) || (email == nil || email!.isEmpty) {
+                alertController.dismiss(animated: true, completion: nil)
+                self.showAlert(title: "Erro", message: "Algum(s) dos campos necessários não foi informado")
+            } else {
+                self.doCheckin(name: name!, email: email!)
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancelar", style: .cancel, handler: nil)
+        
+        alertController.addAction(submitAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true)
+    }
+    
+    private func doCheckin(name: String, email: String) {
+        self.detailEventViewModel.doCheckin(eventId: self.event!.id, name: name, email: email, completion: { result in
+            if result {
+                self.showAlert(title: "Sucesso", message: "Seu checkin foi realizado com sucesso")
+            } else {
+                self.showAlert(title: "Erro", message: "Algum erro ocorreu durante o check-in")
+            }
+        })
+    }
+    
+    private func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title,
+                                                message: message, preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancelar", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true)
+    }
+    
+    private func setNewContentSize(size: CGFloat) {
+        
+        self.containerView.frame.size.height = size
+        self.scrollView.contentSize.height = size
     }
 }
