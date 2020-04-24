@@ -12,6 +12,8 @@ class ListEventViewController: UIViewController {
 
     private var tableView: UITableView!
     private var listEventViewModel: ListEventViewModelProtocol
+    private var activityindicator: UIActivityIndicatorView!
+    
     
     init(listEventViewModelProtocol: ListEventViewModelProtocol? = nil) {
         self.listEventViewModel = listEventViewModelProtocol ?? ListEventViewModel()
@@ -26,6 +28,7 @@ class ListEventViewController: UIViewController {
         super.viewDidLoad()
         self.setupComponents()
         self.setupConstraints()
+        
         listEventViewModel.loadEvents(completion: {(events) in
             self.tableView.reloadData()
         })
@@ -54,7 +57,7 @@ class ListEventViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
 }
@@ -74,7 +77,9 @@ extension ListEventViewController: UITableViewDataSource {
 extension ListEventViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailViewController = DetailEventViewController()
+        let networkManager = NetworkManager()
+        let detailEventViewModel = DetailEventViewModel(networkManagerProtocol: networkManager)
+        let detailViewController = DetailEventViewController(detailEventViewModelProtocol: detailEventViewModel)
         detailViewController.event = listEventViewModel.eventAt(indexPath.row)
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }

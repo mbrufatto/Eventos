@@ -18,7 +18,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         let navigationVC = UINavigationController()
         window?.rootViewController = navigationVC
-        navigationVC.pushViewController(ListEventViewController(), animated: false)
+        
+        let networkManager = NetworkManager()
+        let listEventViewModel = ListEventViewModel(networkManagerProtocol: networkManager)
+    
+        navigationVC.pushViewController(ListEventViewController(listEventViewModelProtocol: listEventViewModel), animated: false)
         window?.makeKeyAndVisible()
     }
 }

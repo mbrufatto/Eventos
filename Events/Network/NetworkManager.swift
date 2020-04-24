@@ -9,12 +9,12 @@
 import Foundation
 
 class NetworkManager: NetworkManagerProtocol {
-   
+    
     func getEvents(completion: @escaping GetEventsClosure) {
         
         let url = URL(string: ApiConfig.baseUrl)
         
-        let dataTask = URLSession.shared.dataTask(with: url!) { (data, response, error) in
+        let dataTask = URLSession.shared.dataTask(with: URLRequest(url: url!)) { (data, response, error) in
             DispatchQueue.main.async {
                 if let data = data {
                     let decoder = JSONDecoder()
@@ -35,7 +35,7 @@ class NetworkManager: NetworkManagerProtocol {
         
         let url = URL(string: "http://nominatim.openstreetmap.org/reverse?lat=\(latitude)&lon=\(longitude)&format=json")
         
-        let dataTask = URLSession.shared.dataTask(with: url!) { (data, response, error) in
+        let dataTask = URLSession.shared.dataTask(with: URLRequest(url: url!)) { (data, response, error) in
             
             DispatchQueue.main.async {
                 if let data = data {
@@ -63,9 +63,6 @@ class NetworkManager: NetworkManagerProtocol {
         //create the url with URL
         let url = URL(string: ApiConfig.checkinUrl)!
         
-        //create the session object
-        let session = URLSession.shared
-        
         //now create the URLRequest object using the url object
         var request = URLRequest(url: url)
         request.httpMethod = "POST" //set http method as POST
@@ -80,7 +77,7 @@ class NetworkManager: NetworkManagerProtocol {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         //create dataTask using the session object to send data to the server
-        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
             
             guard error == nil else {
                 return
