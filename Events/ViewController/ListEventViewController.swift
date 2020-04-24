@@ -13,8 +13,8 @@ class ListEventViewController: UIViewController {
     private var tableView: UITableView!
     private var listEventViewModel: ListEventViewModelProtocol
     
-    init(listEventViewModelProtocol: ListEventViewModelProtocol? = nil, networkManagerProtocol: NetworkManagerProtocol? = nil) {
-        self.listEventViewModel = listEventViewModelProtocol ?? ListEventViewModel(networkManagerProtocol: networkManagerProtocol ?? NetworkManager())
+    init(listEventViewModelProtocol: ListEventViewModelProtocol? = nil) {
+        self.listEventViewModel = listEventViewModelProtocol ?? ListEventViewModel()
         super.init(nibName: nil, bundle: nil)
     }
     

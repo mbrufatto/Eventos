@@ -14,8 +14,8 @@ class ListEventViewModel: ListEventViewModelProtocol {
     private var networkManagerProtocol: NetworkManagerProtocol
     private var address: String?
     
-    init(networkManagerProtocol: NetworkManagerProtocol) {
-        self.networkManagerProtocol = networkManagerProtocol
+    init(networkManagerProtocol: NetworkManagerProtocol? = nil) {
+        self.networkManagerProtocol = networkManagerProtocol ?? NetworkManager()
     }
     
     func numberOfRows() -> Int {

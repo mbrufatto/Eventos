@@ -58,7 +58,7 @@ class DetailEventViewController: UIViewController {
     //MARK: - View Controller Lifecycle
     
     init(detailEventViewModelProtocol: DetailEventViewModelProtocol? = nil, networkManagerProtocol: NetworkManagerProtocol? = nil) {
-        self.detailEventViewModel = detailEventViewModelProtocol ?? DetailEventViewModel(networkManagerProtocol: networkManagerProtocol ?? NetworkManager())
+        self.detailEventViewModel = detailEventViewModelProtocol ?? DetailEventViewModel()
         super.init(nibName: nil, bundle: nil)
     }
     
