@@ -1,8 +1,8 @@
 # Eventos
 
-Aplicativo para controlar o acesso de visitantes em um condomínio ou empresa.
+Aplicativo para que as pessoas possam ver os eventos que estão acontecendo.
 
-Para este projeto foi utilizado o Cocoapods, para gerenciar as bibliotecas utilizadas. No projeto foram utilizada a seguintes biblioteca:
+Para este projeto foi utilizado o Cocoapods, para gerenciar a biblioteca utilizada. No projeto foi utilizada a seguinte biblioteca:
 
 - Kingfisher: Biblioteca para fazer o downlod das imagens.
 
