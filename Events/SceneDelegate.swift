@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let navigationVC = UINavigationController()
         window?.rootViewController = navigationVC
         
-        let networkManager = NetworkManager(session: URLSession.shared)
+        let networkManager = NetworkManager()
         let listEventViewModel = ListEventViewModel(networkManagerProtocol: networkManager)
     
         navigationVC.pushViewController(ListEventViewController(listEventViewModelProtocol: listEventViewModel), animated: false)

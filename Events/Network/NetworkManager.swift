@@ -9,18 +9,12 @@
 import Foundation
 
 class NetworkManager: NetworkManagerProtocol {
-
-    private let session: URLSessionProtocol
-    
-    init(session: URLSessionProtocol) {
-        self.session = session
-    }
     
     func getEvents(completion: @escaping GetEventsClosure) {
         
         let url = URL(string: ApiConfig.baseUrl)
         
-        let dataTask = session.dataTask(with: URLRequest(url: url!)) { (data, response, error) in
+        let dataTask = URLSession.shared.dataTask(with: URLRequest(url: url!)) { (data, response, error) in
             DispatchQueue.main.async {
                 if let data = data {
                     let decoder = JSONDecoder()
@@ -41,7 +35,7 @@ class NetworkManager: NetworkManagerProtocol {
         
         let url = URL(string: "http://nominatim.openstreetmap.org/reverse?lat=\(latitude)&lon=\(longitude)&format=json")
         
-        let dataTask = session.dataTask(with: URLRequest(url: url!)) { (data, response, error) in
+        let dataTask = URLSession.shared.dataTask(with: URLRequest(url: url!)) { (data, response, error) in
             
             DispatchQueue.main.async {
                 if let data = data {
@@ -83,7 +77,7 @@ class NetworkManager: NetworkManagerProtocol {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         //create dataTask using the session object to send data to the server
-        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
             
             guard error == nil else {
                 return

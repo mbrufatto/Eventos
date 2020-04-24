@@ -22,7 +22,7 @@ class EventTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.networkManagerProtocol = NetworkManager(session: URLSession.shared)
+        self.networkManagerProtocol = NetworkManager()
         setupViews()
     }
     

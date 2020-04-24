@@ -13,7 +13,7 @@ class DetailEventViewModel: DetailEventViewModelProtocol {
     private var networkManagerProtocol: NetworkManagerProtocol
     
     init(networkManagerProtocol: NetworkManagerProtocol? = nil) {
-        self.networkManagerProtocol = networkManagerProtocol ?? NetworkManager(session: URLSession.shared)
+        self.networkManagerProtocol = networkManagerProtocol ?? NetworkManager()
     }
     
     func loadAddress(latitude: String, longitude: String, completion: @escaping GetEventAddressClosure) {
