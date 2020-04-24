@@ -48,6 +48,12 @@ Como o aplicativo não teve um layout definido, então tive que tomar algumas de
 
 - Optei por não colocar nenhum efeito, pois o tempo do projeto não daria tempo, pois teria que estudar efeitos visuais em view code;
 
+- Para este projeto optei por não separar as classes por cenas, então todas as views controllers estão em ViewController, as views models estão em ViewModel, por não achei necessário difidir em mais pastas, por ser um projeto pequeno.
+
+### Testes
+
+Para executar os testes, com o projeto aberto no Xcode é só pressionar as teclas Command + u.
+
 ### Melhorias
 
 Existe algumas issues abertas para este projeto, onde podem ser implementadas para melhorar a experiência do operador.
