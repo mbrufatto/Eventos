@@ -1,8 +1,8 @@
 # Eventos
 
-Aplicativo para controlar o acesso de visitantes em um condomínio ou empresa.
+Aplicativo para que as pessoas possam ver os eventos que estão acontecendo.
 
-Para este projeto foi utilizado o Cocoapods, para gerenciar as bibliotecas utilizadas. No projeto foram utilizada a seguintes biblioteca:
+Para este projeto foi utilizado o Cocoapods, para gerenciar a biblioteca utilizada. No projeto foi utilizada a seguinte biblioteca:
 
 - Kingfisher: Biblioteca para fazer o downlod das imagens.
 
@@ -40,11 +40,11 @@ Como o aplicativo não teve um layout definido, então tive que tomar algumas de
 
 - As fontes e cores do aplicativo deixei as padrões do sistema, isso facilitou a opção de dark mode, quando o usuário estiver com ela habilitada;
 
-- As informações que o aplicativo apresenta as informações que acredito ser as mais importantes;
+- As informações que o aplicativo apresenta, acredito ser as mais importantes;
 
-- Como a API não trás a informação do endereço do evento, apenas as coordenadas geográficas, e a API do google é paga, então optei por utilizar a API nominatim.openstreetmap.org, que me trás várias informações da coordenada geográfica;
+- Como a API não trás a informação do endereço do evento, apenas as coordenadas geográficas, e a API do google é paga, então optei por utilizar a API nominatim.openstreetmap.org, que me trás várias informações de endereço para a coordenada geográfica;
 
-- Para esse projeto, optei em desenvolver todo em view code, para não haver problemas de conflito com a storyboard e nem com a xib, e para ter um controle melhor sobre os componentes que estou colocando na tela;
+- Para esse projeto, optei em desenvolver em view code, para não haver problemas de conflito com a storyboard e nem com a xib, e para ter um controle melhor sobre os componentes que estou colocando na tela;
 
 - Optei por não colocar nenhum efeito, pois o tempo do projeto não daria tempo, pois teria que estudar efeitos visuais em view code;
 
@@ -56,4 +56,4 @@ Para executar os testes, com o projeto aberto no Xcode é só pressionar as tecl
 
 ### Melhorias
 
-Existe algumas issues abertas para este projeto, onde podem ser implementadas para melhorar a experiência do operador.
+Existe uma issue aberta para este projeto, onde podem ser implementada para melhorar a experiência do usuário.
