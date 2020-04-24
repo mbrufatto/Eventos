@@ -74,7 +74,9 @@ extension ListEventViewController: UITableViewDataSource {
 extension ListEventViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailViewController = DetailEventViewController()
+        let networkManager = NetworkManager(session: URLSession.shared)
+        let detailEventViewModel = DetailEventViewModel(networkManagerProtocol: networkManager)
+        let detailViewController = DetailEventViewController(detailEventViewModelProtocol: detailEventViewModel)
         detailViewController.event = listEventViewModel.eventAt(indexPath.row)
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }

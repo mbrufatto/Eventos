@@ -33,17 +33,17 @@ class ListEventsTest: XCTestCase {
     }
     
     private func didLoadEvents(nameFile: String) -> [Event] {
-           let bundle = Bundle(for: type(of: self))
-           if let url = bundle.url(forResource: nameFile, withExtension: "json") {
-               do {
-                   let data = try Data(contentsOf: url)
-                   let decoder = JSONDecoder()
-                   let jsonData = try decoder.decode([Event].self, from: data)
-                   return jsonData
-               } catch {
-                   return []
-               }
-           }
-           return []
-       }
+        let bundle = Bundle(for: type(of: self))
+        if let url = bundle.url(forResource: nameFile, withExtension: "json") {
+            do {
+                let data = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                let jsonData = try decoder.decode([Event].self, from: data)
+                return jsonData
+            } catch {
+                return []
+            }
+        }
+        return []
+    }
 }

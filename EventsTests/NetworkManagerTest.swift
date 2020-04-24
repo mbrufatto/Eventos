@@ -10,7 +10,7 @@ import XCTest
 @testable import Events
 
 class NetworkManagerTest: XCTestCase {
-    
+
     var networkManager: NetworkManager!
     let session = MockURLSession()
     
@@ -23,12 +23,29 @@ class NetworkManagerTest: XCTestCase {
         super.tearDown()
     }
     
-    func testGetEvents() {
+    func testGetRequestWithURL() {
         guard let url = URL(string: "https://mockurl") else {
             fatalError("URL não poder ser vazia")
         }
         
+        networkManager.getEvents(url: "https://mockurl") { (sucess, response) in
+            
+        }
         
+        XCTAssert(session.lastUrl = url)
+    }
+
+
+    func  testGetResumeCalled () {
+        let dataTask = MockURLSessionDataTask()
+        session.nextDataTask = dataTask
+        guard let url = URL(string: "https://mockurl") else {
+            fatalError("URL can't be empty")
+        }
+        httpClient.get(url: url) { (success, response) in
+            // Return data
+        }
+        XCTAssert(dataTask.resumeWasCalled)
     }
 
 }
